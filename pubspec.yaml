@@ -34,3 +34,15 @@ flutter:
     - family: Lato1
       fonts:
         - asset: assets/fonts/Lato-Black.ttf
+    - family: Lato2
+      fonts:
+        - asset: assets/fonts/Lato-BlackItalic.ttf
+    - family: Lato3
+      fonts:
+        - asset: assets/fonts/Lato-Bold.ttf
+    - family: Lato4
+      fonts:
+        - asset: assets/fonts/Lato-BoldItalic.ttf
+    - family: Lato5
+      fonts:
+        - asset: assets/fonts/Lato-Italic.ttf

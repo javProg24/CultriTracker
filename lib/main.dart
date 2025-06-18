@@ -1,4 +1,5 @@
 // pagina de bienvenida
+import 'package:cultritracker/iniciarsesion.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +21,16 @@ class MyBievenidaPage extends StatefulWidget {
 }
 
 class _MyBievenidaPage extends State<MyBievenidaPage> {
+  void nuevoFormulario() {}
+  void validarUsuario() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => MyIniciarSesionPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,37 +46,47 @@ class _MyBievenidaPage extends State<MyBievenidaPage> {
             child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: const Text(
-                    'TE DAMOS LA BIENVENIDA A CULTITRAKER',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'PressStart2P',
-                      color: Colors.indigoAccent,
-                      letterSpacing: 2,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black26,
-                          offset: Offset(2, 2),
-                          blurRadius: 4,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'CULTITRAKER',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'PressStart2P',
+                          color: Colors.indigoAccent,
+                          letterSpacing: 2,
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Gestiona tus riegos y cultivos',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                const SizedBox(height: 20),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: const Text(
-                    'Gestiona tus riegos y cultivos',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.white,
-                      fontFamily: 'Roboto2',
-                    ),
+                  width: 320,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [botones()],
                   ),
                 ),
               ],
@@ -73,6 +94,43 @@ class _MyBievenidaPage extends State<MyBievenidaPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget botones() {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          width: 300,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+            onPressed: () {
+              validarUsuario();
+            },
+            child: Text(
+              'Iniciar Sesion',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: 300,
+          child: ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              'Registrarse',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

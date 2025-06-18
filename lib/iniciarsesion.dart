@@ -1,15 +1,6 @@
 // login
 import 'package:flutter/material.dart';
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: const MyIniciarSesionPage());
-  }
-}
-
 class MyIniciarSesionPage extends StatefulWidget {
   const MyIniciarSesionPage({super.key});
   @override
@@ -110,10 +101,6 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
             onPressed: () {},
             child: Text('Iniciar Sesion'),
           ),
-        ),
-        SizedBox(
-          width: 300,
-          child: ElevatedButton(onPressed: () {}, child: Text('Registrarse')),
         ),
       ],
     );
