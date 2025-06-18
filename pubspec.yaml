@@ -17,3 +17,20 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: PressStart2P
+      fonts:
+        - asset: assets/fonts/PressStart2P-Regular.ttf
+    - family: Roboto1
+      fonts:
+        - asset: assets/fonts/Roboto-Italic-VariableFont_wdth,wght.ttf
+    - family: Roboto2
+      fonts:
+        - asset: assets/fonts/Roboto-VariableFont_wdth,wght.ttf
+    - family: Lato1
+      fonts:
+        - asset: assets/fonts/Lato-Black.ttf
