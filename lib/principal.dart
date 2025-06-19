@@ -1,4 +1,9 @@
-import 'package:cultritracker/iniciarsesion.dart';
+import 'package:cultritracker/page/cultivo.dart';
+import 'package:cultritracker/page/insumo.dart';
+import 'package:cultritracker/page/parcela.dart';
+import 'package:cultritracker/page/riego.dart';
+import 'package:cultritracker/page/tarea.dart';
+import 'package:cultritracker/utils/icons.dart';
 import 'package:flutter/material.dart';
 
 class MyPrincipalPage extends StatefulWidget {
@@ -9,36 +14,49 @@ class MyPrincipalPage extends StatefulWidget {
 
 class _MyPrincipalPage extends State<MyPrincipalPage> {
   int currentPageIndex = 0;
+  final List<Widget> _paginas = [
+    CultivoPage(),
+    InsumoPage(),
+    ParcelaPage(),
+    RiegoPage(),
+    TareaPage(),
+  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      currentPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-
-          if (index == 3) {
-            // Ir a MyMainPage
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const MyIniciarSesionPage(),
-              ),
-            );
-          }
-        },
-        indicatorColor: Colors.grey,
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.home), label: 'Inicio'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Perfil'),
-          NavigationDestination(icon: Icon(Icons.settings), label: 'Ajustes'),
-          NavigationDestination(
-            icon: Icon(Icons.arrow_back),
-            label: 'Regresar',
-          ),
-        ],
+      body: _paginas[currentPageIndex],
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: MyIcons.cultivoPNG(),
+              onPressed: () => _onItemTapped(0),
+            ),
+            IconButton(
+              onPressed: () => _onItemTapped(1),
+              icon: MyIcons.insumoPNG(),
+            ),
+            IconButton(
+              onPressed: () => _onItemTapped(2),
+              icon: MyIcons.tierraPNG(),
+            ),
+            IconButton(
+              onPressed: () => _onItemTapped(3),
+              icon: MyIcons.cuboPNG(),
+            ),
+            IconButton(
+              onPressed: () => _onItemTapped(4),
+              icon: MyIcons.libroPNG(),
+            ),
+          ],
+        ),
       ),
     );
   }
