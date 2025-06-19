@@ -3,6 +3,7 @@ import 'package:cultritracker/page/insumo.dart';
 import 'package:cultritracker/page/parcela.dart';
 import 'package:cultritracker/page/riego.dart';
 import 'package:cultritracker/page/tarea.dart';
+import 'package:cultritracker/page/usuario.dart';
 import 'package:cultritracker/utils/icons.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class _MyPrincipalPage extends State<MyPrincipalPage> {
     ParcelaPage(),
     RiegoPage(),
     TareaPage(),
+    UsuarioPage(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -54,6 +56,10 @@ class _MyPrincipalPage extends State<MyPrincipalPage> {
             IconButton(
               onPressed: () => _onItemTapped(4),
               icon: MyIcons.libroPNG(),
+            ),
+            IconButton(
+              onPressed: () => _onItemTapped(5),
+              icon: MyIcons.usuarioPNG(),
             ),
           ],
         ),

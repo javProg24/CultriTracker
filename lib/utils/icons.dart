@@ -46,4 +46,13 @@ class MyIcons {
       color: color,
     );
   }
+
+  static Widget usuarioPNG({double size = 24.0, Color? color}) {
+    return Image.asset(
+      'assets/icons/usuario_icon.png',
+      width: size,
+      height: size,
+      color: color,
+    );
+  }
 }
