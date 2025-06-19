@@ -1,13 +1,14 @@
 // pagina de bienvenida
 import 'package:cultritracker/iniciarsesion.dart';
+import 'package:cultritracker/registro.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainAppCul());
+  runApp(const MainApp());
 }
 
-class MainAppCul extends StatelessWidget {
-  const MainAppCul({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: const MyBievenidaPage());
@@ -21,7 +22,13 @@ class MyBievenidaPage extends StatefulWidget {
 }
 
 class _MyBievenidaPage extends State<MyBievenidaPage> {
-  void nuevoFormulario() {}
+  void nuevoFormulario() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => MyRegistroPage()),
+    );
+  }
+
   void validarUsuario() {
     Navigator.push(
       context,
@@ -60,8 +67,15 @@ class _MyBievenidaPage extends State<MyBievenidaPage> {
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'PressStart2P',
-                          color: Colors.indigoAccent,
+                          color: Colors.indigo,
                           letterSpacing: 2,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black26,
+                              offset: Offset(2, 2),
+                              blurRadius: 4,
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 8),
@@ -120,7 +134,9 @@ class _MyBievenidaPage extends State<MyBievenidaPage> {
         SizedBox(
           width: 300,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              nuevoFormulario();
+            },
             child: Text(
               'Registrarse',
               style: TextStyle(
