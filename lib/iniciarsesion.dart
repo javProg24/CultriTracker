@@ -1,5 +1,5 @@
-// login
 import 'package:cultritracker/principal.dart';
+import 'package:cultritracker/registro.dart';
 import 'package:flutter/material.dart';
 
 class MyIniciarSesionPage extends StatefulWidget {
@@ -9,6 +9,22 @@ class MyIniciarSesionPage extends StatefulWidget {
 }
 
 class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _correoController = TextEditingController();
+  final TextEditingController _contrasenaController = TextEditingController();
+
+  bool validarUsuario(String correo, String contrasena) {
+    return UsuariosRegistrados.usuarios.any((usuario) =>
+        usuario['correo'] == correo.trim() &&
+        usuario['contrasena'] == contrasena.trim());
+  }
+
+  void _mostrarError(String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(mensaje), backgroundColor: Colors.red),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +38,13 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
               ),
             ),
           ),
-          // Botón con flecha en la esquina superior izquierda
           Positioned(
             top: 40,
             left: 10,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
               onPressed: () {
-                Navigator.pop(context); // Regresa a la pantalla anterior
+                Navigator.pop(context);
               },
             ),
           ),
@@ -37,7 +52,6 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // LOGO O TEXTO SUPERIOR
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: const Text(
@@ -73,29 +87,32 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
                         ),
                       ],
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Hola de Nuevo',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blueAccent,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            'Iniciar Sesion',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueAccent,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        elementosIngreso(),
-                        const SizedBox(height: 20),
-                        botones(),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: const [
-                            Checkbox(value: false, onChanged: null),
-                            Text('Recordar contraseña'),
-                          ],
-                        ),
-                      ],
+                          const SizedBox(height: 20),
+                          elementosIngreso(),
+                          const SizedBox(height: 20),
+                          botones(),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: const [
+                              Checkbox(value: false, onChanged: null),
+                              Text('Recordar contraseña'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -115,15 +132,23 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => MyPrincipalPage(),
-                ),
-              );
+              if (_formKey.currentState!.validate()) {
+                bool existe = validarUsuario(
+                    _correoController.text, _contrasenaController.text);
+                if (existe) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => MyPrincipalPage(),
+                    ),
+                  );
+                } else {
+                  _mostrarError('Usuario o contraseña incorrectos');
+                }
+              }
             },
-            child: Text(
-              'Iniciar Sesion',
+            child: const Text(
+              'Iniciar Sesión',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -137,20 +162,40 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
 
   Widget elementosIngreso() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        TextField(
-          decoration: InputDecoration(
+        TextFormField(
+          controller: _correoController,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Correo',
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Ingrese su correo';
+            }
+            if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(value)) {
+              return 'Correo no válido';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
+        TextFormField(
+          controller: _contrasenaController,
+          obscureText: true,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Contraseña',
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Ingrese su contraseña';
+            }
+            if (value.length < 4) {
+              return 'Debe tener al menos 4 caracteres';
+            }
+            return null;
+          },
         ),
       ],
     );

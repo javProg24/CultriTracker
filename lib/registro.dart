@@ -1,7 +1,9 @@
-// formulario de registro
-//https://www.youtube.com/watch?v=d3mpzn6Ko2o&t=20s
 import 'package:cultritracker/main.dart';
 import 'package:flutter/material.dart';
+
+class UsuariosRegistrados {
+  static final List<Map<String, String>> usuarios = [];
+}
 
 class MyRegistroPage extends StatefulWidget {
   const MyRegistroPage({super.key});
@@ -15,10 +17,14 @@ class _MyRegistroPage extends State<MyRegistroPage> {
   final TextEditingController cedulaController = TextEditingController();
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController apellidoController = TextEditingController();
-  //
+  final TextEditingController correoController = TextEditingController();
+  final TextEditingController contrasenaController = TextEditingController();
+  final myControllerFecha = TextEditingController();
+
   String? itemSeleccionado;
   DateTime? fechaSeleccionada;
-  final myControllerFecha = TextEditingController();
+  TipoUsuario? _tipoUsuario = TipoUsuario.estudiante;
+
   Future<void> _seleccionarFecha() async {
     final DateTime? pickerDate = await showDatePicker(
       context: context,
@@ -36,7 +42,6 @@ class _MyRegistroPage extends State<MyRegistroPage> {
     });
   }
 
-  TipoUsuario? _tipoUsuario = TipoUsuario.estudiante;
   final List<DropdownMenuItem<String>> items = [
     const DropdownMenuItem(
       value: null,
@@ -50,10 +55,13 @@ class _MyRegistroPage extends State<MyRegistroPage> {
     {'label': 'Estudiante', 'value': TipoUsuario.estudiante},
     {'label': 'Docente', 'value': TipoUsuario.docente},
   ];
+
   void limpiarCampos() {
     cedulaController.clear();
     nombreController.clear();
     apellidoController.clear();
+    correoController.clear();
+    contrasenaController.clear();
     myControllerFecha.clear();
     itemSeleccionado = null;
     fechaSeleccionada = null;
@@ -66,9 +74,17 @@ class _MyRegistroPage extends State<MyRegistroPage> {
     print('Cedula: ${cedulaController.text}');
     print('Nombre: ${nombreController.text}');
     print('Apellido: ${apellidoController.text}');
+    print('Correo: ${correoController.text}');
+    print('Contraseña: ${contrasenaController.text}');
     print('Fecha de Nacimiento: ${myControllerFecha.text}');
     print('Genero: ${itemSeleccionado ?? "No seleccionado"}');
     print('Tipo de Usuario: ${_tipoUsuario.toString().split('.').last}');
+
+    UsuariosRegistrados.usuarios.add({
+      'correo': correoController.text.trim(),
+      'contrasena': contrasenaController.text.trim(),
+      'nombre': nombreController.text.trim(),
+    });
   }
 
   @override
@@ -77,7 +93,7 @@ class _MyRegistroPage extends State<MyRegistroPage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/fondo.png'), // Fondo de pantalla
+            image: AssetImage('assets/images/fondo.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -128,45 +144,39 @@ class _MyRegistroPage extends State<MyRegistroPage> {
 
   Widget botones() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center, // Centra horizontalmente
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SizedBox(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-            onPressed: () {
-              guardarFormulario();
-              limpiarCampos();
-            },
-            // mostrar en consola
-            child: const Text(
-              'Guardar',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+          onPressed: () {
+            guardarFormulario();
+            limpiarCampos();
+          },
+          child: const Text(
+            'Guardar',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        const SizedBox(width: 16), // Espacio entre los botones
-        SizedBox(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-            onPressed: () {
-              limpiarCampos();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => MyBievenidaPage(),
-                ),
-              );
-            },
-            // limpiar campos y volver al main
-            child: const Text(
-              'Cancelar',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+        const SizedBox(width: 16),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+          onPressed: () {
+            limpiarCampos();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => MyBievenidaPage(),
               ),
+            );
+          },
+          child: const Text(
+            'Cancelar',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -175,50 +185,47 @@ class _MyRegistroPage extends State<MyRegistroPage> {
   }
 
   Widget elementosFormulario() {
-    // -Calendario, - ComboBox,RadioButton
-    // 6 campos
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         TextField(
           controller: cedulaController,
-          onChanged: (value) {},
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Cedula',
-            labelStyle: TextStyle(color: Colors.grey[600]),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
-            ),
           ),
         ),
         const SizedBox(height: 15),
         TextField(
           controller: nombreController,
-          onChanged: (value) {},
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Nombre',
-            labelStyle: TextStyle(color: Colors.grey[600]),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
-            ),
           ),
         ),
         const SizedBox(height: 15),
         TextField(
           controller: apellidoController,
-          onChanged: (value) {},
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Apellido',
-            labelStyle: TextStyle(color: Colors.grey[600]),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
-            ),
+          ),
+        ),
+        const SizedBox(height: 15),
+        TextField(
+          controller: correoController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Correo',
+          ),
+        ),
+        const SizedBox(height: 15),
+        TextField(
+          controller: contrasenaController,
+          obscureText: true,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Contraseña',
           ),
         ),
         const SizedBox(height: 15),
@@ -229,17 +236,9 @@ class _MyRegistroPage extends State<MyRegistroPage> {
               child: TextField(
                 controller: myControllerFecha,
                 readOnly: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Fecha de Nacimiento',
-                  labelStyle: TextStyle(color: Colors.grey[600]),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Colors.blue.shade600,
-                      width: 2,
-                    ),
-                  ),
                 ),
               ),
             ),
@@ -250,10 +249,7 @@ class _MyRegistroPage extends State<MyRegistroPage> {
                 padding: const EdgeInsets.all(12),
                 backgroundColor: Colors.indigo,
               ),
-              child: const Icon(
-                Icons.calendar_today,
-                color: Colors.white, // Color del ícono
-              ),
+              child: const Icon(Icons.calendar_today, color: Colors.white),
             ),
           ],
         ),
@@ -261,24 +257,10 @@ class _MyRegistroPage extends State<MyRegistroPage> {
         DropdownButtonFormField<String>(
           value: itemSeleccionado,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 14,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.grey.shade400, width: 1.2),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Colors.blue.shade600, width: 2),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.red, width: 2),
-            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
-          icon: const Icon(Icons.arrow_drop_down, color: Colors.grey),
+          icon: const Icon(Icons.arrow_drop_down),
           iconSize: 28,
           style: const TextStyle(color: Colors.black87, fontSize: 16),
           dropdownColor: Colors.white,
