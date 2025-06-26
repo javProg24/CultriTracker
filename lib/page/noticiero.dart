@@ -42,8 +42,9 @@ class _NoticieroPageState extends State<NoticieroPage> {
           ),
           const SizedBox(height: 20),
           Expanded(
-            child: _paginaSeleccionada ?? 
-              const Center(child: Text("Selecciona una fuente")),
+            child:
+                _paginaSeleccionada ??
+                const Center(child: Text("Selecciona una fuente")),
           ),
         ],
       ),
