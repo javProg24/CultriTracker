@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 import 'package:webfeed/webfeed.dart';
-import 'package:html/parser.dart' as html_parser;
 
 class NoticiasPage extends StatefulWidget {
   const NoticiasPage({super.key});
@@ -20,7 +20,9 @@ class _TareaPageState extends State<NoticiasPage> {
   }
 
   Future<RssFeed> getNews() async {
-    final response = await http.get(Uri.parse("https://www.elcomercio.com/feed/"));
+    final response = await http.get(
+      Uri.parse("https://www.elcomercio.com/feed/"),
+    );
     if (response.statusCode == 200) {
       return RssFeed.parse(response.body);
     } else {
@@ -35,11 +37,8 @@ class _TareaPageState extends State<NoticiasPage> {
     return imgTag?.attributes['src'];
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Noticias El Comercio'),
@@ -62,12 +61,12 @@ class _TareaPageState extends State<NoticiasPage> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index];
-                final category = (item.categories != null && item.categories!.isNotEmpty)
+                final category =
+                    (item.categories != null && item.categories!.isNotEmpty)
                     ? item.categories!.first.value
                     : 'General';
                 final author = item.dc?.creator ?? 'Desconocido';
                 final imageUrl = extractImageFromContent(item.content?.value);
-
                 return Card(
                   elevation: 5,
                   margin: const EdgeInsets.symmetric(vertical: 8),
@@ -93,7 +92,10 @@ class _TareaPageState extends State<NoticiasPage> {
                                   width: 100,
                                   height: 100,
                                   color: Colors.grey[300],
-                                  child: const Icon(Icons.image_not_supported, size: 40),
+                                  child: const Icon(
+                                    Icons.image_not_supported,
+                                    size: 40,
+                                  ),
                                 ),
                         ),
                         const SizedBox(width: 16),
@@ -128,7 +130,7 @@ class _TareaPageState extends State<NoticiasPage> {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

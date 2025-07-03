@@ -19,9 +19,11 @@ class _UniversoPageState extends State<UniversoPage> {
   }
 
   Future<RssFeed> getNews() async {
-    final response = await http.get(Uri.parse(
-      'https://www.eluniverso.com/arc/outboundfeeds/rss-subsection/deportes/futbol/?outputType=xml'
-    ));
+    final response = await http.get(
+      Uri.parse(
+        'https://www.eluniverso.com/arc/outboundfeeds/rss-subsection/deportes/futbol/?outputType=xml',
+      ),
+    );
     if (response.statusCode == 200) {
       return RssFeed.parse(response.body);
     } else {
@@ -53,12 +55,12 @@ class _UniversoPageState extends State<UniversoPage> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index];
-                final category = (item.categories != null && item.categories!.isNotEmpty)
+                final category =
+                    (item.categories != null && item.categories!.isNotEmpty)
                     ? item.categories!.first.value
                     : 'Fútbol';
                 final author = item.dc?.creator ?? 'Desconocido';
                 final imageUrl = item.enclosure?.url;
-
                 return Card(
                   elevation: 5,
                   margin: const EdgeInsets.symmetric(vertical: 8),
@@ -84,7 +86,10 @@ class _UniversoPageState extends State<UniversoPage> {
                                   width: 100,
                                   height: 100,
                                   color: Colors.grey[300],
-                                  child: const Icon(Icons.image_not_supported, size: 40),
+                                  child: const Icon(
+                                    Icons.image_not_supported,
+                                    size: 40,
+                                  ),
                                 ),
                         ),
                         const SizedBox(width: 16),
@@ -119,7 +124,7 @@ class _UniversoPageState extends State<UniversoPage> {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

@@ -1,6 +1,6 @@
 // pagina de bienvenida
-import 'package:cultritracker/iniciarsesion.dart';
-import 'package:cultritracker/registro.dart';
+import 'package:cultritracker/presentation/iniciar_sesion.dart';
+import 'package:cultritracker/presentation/page/registro/registro.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -148,5 +148,9 @@ class _MyBievenidaPage extends State<MyBievenidaPage> {
         ),
       ],
     );
+  }
+
+  void metodo() {
+    nuevoFormulario();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cultritracker/page/universo.dart';
-import 'package:cultritracker/page/noticias.dart';
+import 'package:cultritracker/presentation/page/universo.dart';
+import 'package:cultritracker/presentation/page/noticias.dart';
 
 class NoticieroPage extends StatefulWidget {
   const NoticieroPage({super.key});
@@ -35,7 +35,7 @@ class _NoticieroPageState extends State<NoticieroPage> {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                _paginaSeleccionada = const UniversoPage(); // Universo
+                _paginaSeleccionada = const UniversoPage();
               });
             },
             child: const Text('Universo'),

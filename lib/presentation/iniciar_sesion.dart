@@ -1,5 +1,4 @@
-import 'package:cultritracker/principal.dart';
-import 'package:cultritracker/registro.dart';
+import 'package:cultritracker/presentation/principal.dart';
 import 'package:flutter/material.dart';
 
 class MyIniciarSesionPage extends StatefulWidget {
@@ -12,12 +11,6 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _correoController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
-
-  bool validarUsuario(String correo, String contrasena) {
-    return UsuariosRegistrados.usuarios.any((usuario) =>
-        usuario['correo'] == correo.trim() &&
-        usuario['contrasena'] == contrasena.trim());
-  }
 
   void _mostrarError(String mensaje) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -134,7 +127,9 @@ class _MyIniciarSesionPage extends State<MyIniciarSesionPage> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 bool existe = validarUsuario(
-                    _correoController.text, _contrasenaController.text);
+                  _correoController.text,
+                  _contrasenaController.text,
+                );
                 if (existe) {
                   Navigator.push(
                     context,
