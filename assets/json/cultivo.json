@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nombre": "Maíz",
+    "tipo": "Cereal",
+    "fechaSiembra": "2025-07-01"
+  },
+  {
+    "id": 2,
+    "nombre": "Tomate",
+    "tipo": "Hortaliza",
+    "fechaSiembra": "2025-06-15"
+  },
+  {
+    "id": 3,
+    "nombre": "Arroz",
+    "tipo": "Cereal",
+    "fechaSiembra": "2025-07-05"
+  }
+]
