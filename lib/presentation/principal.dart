@@ -1,10 +1,9 @@
-import 'package:cultritracker/presentation/page/cultivo.dart';
-import 'package:cultritracker/presentation/page/insumo.dart';
-import 'package:cultritracker/presentation/page/noticiero.dart';
-import 'package:cultritracker/presentation/page/parcela.dart';
-import 'package:cultritracker/presentation/page/riego.dart';
-import 'package:cultritracker/presentation/page/universo.dart';
 import 'package:cultritracker/core/utils/icons.dart';
+import 'package:cultritracker/presentation/page/cultivo/cultivo_lista_page.dart';
+import 'package:cultritracker/presentation/page/insumo/insumo_lista_page.dart';
+import 'package:cultritracker/presentation/page/parcela/parcela_lista_page.dart';
+import 'package:cultritracker/presentation/page/riego/riego_lista_page.dart';
+import 'package:cultritracker/presentation/page/tarea/tarea_lista_page.dart';
 import 'package:flutter/material.dart';
 
 class MyPrincipalPage extends StatefulWidget {
@@ -17,14 +16,13 @@ class _MyPrincipalPage extends State<MyPrincipalPage> {
   int _currentPageIndex = 0;
 
   final List<Widget> _paginas = [
-    CultivoPage(),
-    InsumoPage(),
-    ParcelaPage(),
-    RiegoPage(),
-    UniversoPage(),
-    NoticieroPage(),
+    CultivoListaPage(),
+    InsumoListaPage(),
+    ParcelaListaPage(),
+    RiegoListaPage(),
+    TareasListaPage(),
   ];
-  
+
   void _onItemTapped(int index) {
     setState(() {
       _currentPageIndex = index;

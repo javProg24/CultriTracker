@@ -1,5 +1,5 @@
 import 'package:cultritracker/domain/usuario.dart';
-import 'package:cultritracker/domain/usuarios_registrados.dart';
+import 'package:cultritracker/core/constants/usuarios_registrados.dart';
 import 'package:cultritracker/presentation/page/registro/formulario_registro.dart';
 import 'package:flutter/material.dart';
 
