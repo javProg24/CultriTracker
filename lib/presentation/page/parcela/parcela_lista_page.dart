@@ -47,11 +47,6 @@ class _ParcelaListaPageState extends State<ParcelaListaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Lista de Parcelas"),
-        backgroundColor: const Color.fromARGB(255, 58, 137, 183),
-        foregroundColor: Colors.white,
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 58, 137, 183),
         child: const Icon(Icons.add, color: Colors.white),

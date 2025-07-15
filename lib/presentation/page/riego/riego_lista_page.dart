@@ -46,11 +46,6 @@ class _RiegoListaPageState extends State<RiegoListaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Lista de Riegos"),
-        backgroundColor: const Color.fromARGB(255, 58, 137, 183),
-        foregroundColor: Colors.white,
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 58, 137, 183),
         child: const Icon(Icons.add, color: Colors.white),
@@ -78,7 +73,10 @@ class _RiegoListaPageState extends State<RiegoListaPage> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: const Icon(Icons.water_drop, color: Colors.blue),
+                          leading: const Icon(
+                            Icons.water_drop,
+                            color: Colors.blue,
+                          ),
                           title: Text(
                             "Riego del ${riego.fecha}",
                             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -88,19 +86,22 @@ class _RiegoListaPageState extends State<RiegoListaPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (riego.hora != null && riego.hora!.isNotEmpty)
+                                if (riego.hora != null &&
+                                    riego.hora!.isNotEmpty)
                                   Text("Hora: ${riego.hora}"),
-                                Text("Cantidad de agua: ${riego.cantidadAgua} L"),
+                                Text(
+                                  "Cantidad de agua: ${riego.cantidadAgua} L",
+                                ),
                                 Text("Método de riego: ${riego.metodoRiego}"),
                               ],
                             ),
                           ),
                         ),
                         IconButton(
-                        onPressed: () =>
-                            setState(() => riegos.removeAt(index)),
-                        icon: Icon(Icons.delete),
-                      )
+                          onPressed: () =>
+                              setState(() => riegos.removeAt(index)),
+                          icon: Icon(Icons.delete),
+                        ),
                       ],
                     ),
                   ),

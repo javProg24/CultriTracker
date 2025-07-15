@@ -9,10 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  xml: ^6.3.0
+  xml: ^5.4.1
   http: ^1.2.2
   webfeed: ^0.7.0
   html: ^0.15.4
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:
